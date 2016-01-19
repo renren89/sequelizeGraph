@@ -2,6 +2,10 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
+var bodyParser = require('body-parser');
+var cassandra = require('cassandra-driver');
+var client = new cassandra.Client({ contactPoints: ['127.0.0.1']});
+
 
 var app = express();
 var compiler = webpack(config);
@@ -12,7 +16,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
-
+app.use(bodyParser.json());
+client.connect((err, res) => console.log('Connected to Cassandra'));
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
