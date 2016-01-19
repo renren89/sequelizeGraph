@@ -3,20 +3,17 @@ import { render } from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import configureStore from './store/configureStore';
+import DevTools from './DevTools';
 
-const reducers = {
-  form: formReducer
-};
-const reducer = combineReducers(reducers);
-
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducer)
+const store = configureStore();
 
 render(
   <Provider store={store}>
-    <App />
+    <div>
+      <App />
+      <DevTools />
+    </div>
   </Provider>,
   document.getElementById('root')
 );
