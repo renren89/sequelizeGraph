@@ -19,7 +19,8 @@ app.use((webpackHotMiddlware)(compiler));
 app.use(bodyParser.json());
 client.connect((err, res) => {
   if (err) {
-    throw new Error('could not connect to Cassandra Node')
+    let error = new Error('could not connect to Cassandra Node');
+    console.log(error);
   } else {
     console.log('Successfully connected to Cassandra')
   }
