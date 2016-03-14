@@ -1,3 +1,5 @@
+/* @flow */
+
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import {rootReducer} from '../reducers/rootReducer';
@@ -9,7 +11,7 @@ const finalCreateStore = compose(
   DevTools.instrument()
 )(createStore);
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState: Object | void): Object {
   const store = finalCreateStore(rootReducer, initialState);
 
   return store;
