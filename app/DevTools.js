@@ -3,7 +3,8 @@
 import React from 'react';
 import { createDevTools  } from 'redux-devtools';
 import DockMonitor from 'redux-devtools-dock-monitor';
-import ChartMonitor from 'redux-devtools-chart-monitor';
+import Dispatcher from 'redux-devtools-dispatch';
+import ChartMonitor from 'redux-devtools-log-monitor';
 
 export default createDevTools(
   <DockMonitor toggleVisibilityKey='ctrl-h'
@@ -12,4 +13,3 @@ export default createDevTools(
     <ChartMonitor />
   </DockMonitor>
 );
-
