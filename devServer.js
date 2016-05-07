@@ -5,9 +5,12 @@ import config from './webpack.config.dev';
 import bodyParser from 'body-parser';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddlware from 'webpack-hot-middleware';
+import graphqlHTTP from 'express-graphql';
+import Schema from './graphql/schema';
 
 const app = express();
 const compiler = webpack(config);
+const port = process.argv[2] || 3000;
 
 app.use((webpackMiddleware)(compiler, {
   noInfo: true,
@@ -15,6 +18,10 @@ app.use((webpackMiddleware)(compiler, {
 }));
 app.use((webpackHotMiddlware)(compiler));
 app.use(bodyParser.json());
+
+app.use('/graphql', graphqlHTTP({
+  schema: Schema, graphiql: true
+}));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
